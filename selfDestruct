@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SelfDestructible {
+    address payable private owner;
+
+    constructor() {
+        owner = payable(msg.sender);
+    }
+
+    function selfDestruct() external {
+        require(msg.sender == owner, "Only owner can self-destruct the contract");
+        selfdestruct(owner);
+    }
+}
